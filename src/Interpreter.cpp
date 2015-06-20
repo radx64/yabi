@@ -10,11 +10,13 @@ void Interpreter::load(std::string program)
     memory_.resize(memorySize_,0);
     memoryPointer_ = 0;
     programPointer_ = 0;
+    std::cout << "Loaded program:" << std::endl;
+    std::cout << program << std::endl;
 }
 
 void Interpreter::run()
 {
-    while(true)
+    while(programPointer_<program_.size())
     {
         char command = program_[programPointer_];
         switch(command)
@@ -23,20 +25,77 @@ void Interpreter::run()
             case '<' : decreaseMemoryPointer();break;
             case '+' : increaseMemoryAtPointer();break;
             case '-' : decreaseMemoryAtPointer();break;
-            default : throw std::string("Unknown operand: " + std::to_string(command));
+            case '[' : beginLoop();break;
+            case ']' : endLoop();break;
+            case '.' : printChar();break;
+            default  : throw std::string("Unknown operand: " + std::string(1,command));
         }
         ++programPointer_;
     }
 }
 
+void Interpreter::printChar()
+{
+    std::cout << std::string(1,memory_[memoryPointer_] % 255);
+}
+
+void Interpreter::beginLoop()
+{
+    if (memory_[memoryPointer_] == 0)
+    {
+        loopLevelCount_ = 1;
+        while (loopLevelCount_ > 0)
+        {
+            ++programPointer_;    
+
+            if (program_[programPointer_] == '[')
+            {
+                ++loopLevelCount_;
+            }
+            if (program_[programPointer_] == ']')
+            {
+                --loopLevelCount_;
+            }
+        }
+    }
+}
+void Interpreter::endLoop()
+{
+    if (memory_[memoryPointer_] != 0)
+    {
+        loopLevelCount_ = 1;
+        while (loopLevelCount_ > 0)
+        {
+            --programPointer_;
+            if (program_[programPointer_] == '[')
+            {
+                --loopLevelCount_;
+            }
+            if (program_[programPointer_] == ']')
+            {
+                ++loopLevelCount_;
+            }    
+        }
+    }
+}
+
+
 void Interpreter::printMemory()
 {
-    for  (uint16_t line=0; line<4; ++line)
+    
+    std::cout << "     ";
+
+    for(uint16_t index=0; index<= 0xF; ++index)
+    {
+        std::cout << std::setw(4) << std::hex << index << " ";
+    }       
+    std::cout << std::endl;
+    for  (uint16_t line=0; line<=0xF; ++line)
     {
         std::cout << "0x" << line << ": ";
-        for(uint16_t index=0; index< 0xF; ++index)
+        for(uint16_t index=0; index<= 0xF; ++index)
         {
-            std::cout << std::setw(2) << std::hex << memory_[index+line*0xF] << " ";
+            std::cout << std::setw(4) << std::hex << memory_[index+line*0xF] << " ";
         }
         std::cout << std::endl;
     }
@@ -46,7 +105,7 @@ void Interpreter::increaseMemoryPointer()
 {
     if (memoryPointer_+1 < memorySize_)
     {
-        memoryPointer_+=1;
+        ++memoryPointer_;
     }
     else
     {
@@ -57,7 +116,7 @@ void Interpreter::decreaseMemoryPointer()
 {
     if (memoryPointer_ != 0)
     {
-        memoryPointer_+=1;
+        --memoryPointer_;
     }
     else
     {

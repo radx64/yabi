@@ -11,12 +11,15 @@ int main(int argc, char** argv)
     
     try
     {
+        std::cout << "Output:" << std::endl;
         in.run();
     }
     catch (std::string e)
     {
         std::cout << "Exception was thrown: " << e <<std::endl;
     }
+
+    std::cout << "Memory after run:" << std::endl;
 
     in.printMemory();
     
