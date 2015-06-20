@@ -1,0 +1,7 @@
+/home/radek/yabi/build/tests/CMakeFiles/UnitTests.dir
+/home/radek/yabi/build/gmock/CMakeFiles/gmock.dir
+/home/radek/yabi/build/gmock/CMakeFiles/gmock_main.dir
+/home/radek/yabi/build/gmock/gtest/CMakeFiles/gtest.dir
+/home/radek/yabi/build/gmock/gtest/CMakeFiles/gtest_main.dir
+/home/radek/yabi/build/src/CMakeFiles/src.dir
+/home/radek/yabi/build/CMakeFiles/yabi.dir

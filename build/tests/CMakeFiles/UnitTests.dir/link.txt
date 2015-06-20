@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -Werror    CMakeFiles/UnitTests.dir/testCases/AllTest.cpp.o  -o UnitTests -rdynamic ../gmock/libgmock_main.a ../src/libsrc.a -lpthread 

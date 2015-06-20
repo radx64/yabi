@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wall -Wextra -Werror    CMakeFiles/yabi.dir/main.cpp.o  -o yabi -rdynamic src/libsrc.a 
