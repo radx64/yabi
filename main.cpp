@@ -1,9 +1,24 @@
 #include <iostream>
+#include <exception>
+
+#include "Interpreter.hpp"
 
 int main(int argc, char** argv)
 {
-	std::cout << "Hello in World of YABI!" << std::endl;
-	std::cout << "argc:\t\t" << argc << std::endl;
-	std::cout << "argv[0]:\t" << argv[0] << std::endl;
-	return 0;
+    std::cout << "Hello in World of YABI! " << argc << argv[0] <<std::endl;
+    Interpreter in;
+    in.load("++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.");
+    
+    try
+    {
+        in.run();
+    }
+    catch (std::string e)
+    {
+        std::cout << "Exception was thrown: " << e <<std::endl;
+    }
+
+    in.printMemory();
+    
+    return 0;
 }

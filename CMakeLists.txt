@@ -21,6 +21,8 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}
 					src)
 
+add_definitions(-std=c++11)
+
 add_subdirectory(src)
 
 add_subdirectory(tests)
