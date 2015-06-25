@@ -1,7 +1,9 @@
 #include <iostream>
 #include <exception>
+#include <cstdint>
 
 #include "Interpreter.hpp"
+#include "MemoryPrinter.hpp"
 
 int main(int argc, char** argv)
 {
@@ -11,7 +13,6 @@ int main(int argc, char** argv)
     
     try
     {
-        std::cout << "Output:" << std::endl;
         in.run();
     }
     catch (std::string e)
@@ -20,8 +21,11 @@ int main(int argc, char** argv)
     }
 
     std::cout << "Memory after run:" << std::endl;
+    MemoryPrinter printer;
+    printer.print(in.getMemory());
 
-    in.printMemory();
+    std::cout << "Output:" << std::endl;
+    std::cout <<in.getOutput() <<std::endl;
     
     return 0;
 }

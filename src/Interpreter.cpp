@@ -6,6 +6,7 @@
 void Interpreter::load(std::string program)
 {
     program_ = program;
+    output_.clear();
     memory_.clear();
     memory_.resize(memorySize_,0);
     memoryPointer_ = 0;
@@ -34,9 +35,19 @@ void Interpreter::run()
     }
 }
 
+std::vector<uint32_t>& Interpreter::getMemory()
+{
+    return memory_;
+}
+
 void Interpreter::printChar()
 {
-    std::cout << std::string(1,memory_[memoryPointer_] % 255);
+    output_ += std::string(1,memory_[memoryPointer_] % 255);
+}
+
+std::string Interpreter::getOutput()
+{
+    return output_;
 }
 
 void Interpreter::beginLoop()
@@ -76,28 +87,6 @@ void Interpreter::endLoop()
                 ++loopLevelCount_;
             }    
         }
-    }
-}
-
-
-void Interpreter::printMemory()
-{
-    
-    std::cout << "     ";
-
-    for(uint16_t index=0; index<= 0xF; ++index)
-    {
-        std::cout << std::setw(4) << std::hex << index << " ";
-    }       
-    std::cout << std::endl;
-    for  (uint16_t line=0; line<=0xF; ++line)
-    {
-        std::cout << "0x" << line << ": ";
-        for(uint16_t index=0; index<= 0xF; ++index)
-        {
-            std::cout << std::setw(4) << std::hex << memory_[index+line*0xF] << " ";
-        }
-        std::cout << std::endl;
     }
 }
 
