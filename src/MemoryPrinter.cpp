@@ -14,7 +14,7 @@ void MemoryPrinter::print(const std::vector<uint32_t>& memory, uint16_t howMuchL
         std::cout << std::setw(4)  << index << " ";
     } 
 
-    std::cout << std::endl<< "||||";
+    std::cout << std::endl<< "....";
 
      for(uint16_t index=0; index<= 0xF; ++index)
     {
