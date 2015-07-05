@@ -1,32 +1,31 @@
 #ifndef INTERPRETER_HPP_
 #define INTERPRETER_HPP_
 
-#include <string>
-#include <vector>
-#include <cstdint>
+#include "IInterpreter.hpp"
 
-class Interpreter
+class Interpreter : public IInterpreter
 {
 public:
-    void load(std::string program);
-    void run();
-    void step();
+    void load(std::string program) override;
+    void run() override;
+    void step() override;
 
-    std::vector<uint32_t>& getMemory();
-    std::string getOutput();
+    std::vector<uint32_t>& getMemory() override;
+    std::string getOutput() override;
+    std::string getProgram() override;
 
-    void increaseMemoryPointer();
-    void decreaseMemoryPointer();
-    void increaseMemoryAtPointer();
-    void decreaseMemoryAtPointer();
+    void increaseMemoryPointer() override;
+    void decreaseMemoryPointer() override;
+    void increaseMemoryAtPointer() override;
+    void decreaseMemoryAtPointer() override;
+
+    uint32_t getMemoryPointer() override;
+    uint32_t getProgramPointer() override;
+
+private:
     void printChar();
     void beginLoop();
     void endLoop();
-
-    uint32_t getMemoryPointer();
-    uint32_t getProgramPointer();
-
-private:
     const uint16_t memorySize_ = 30000;
     std::string program_;
     std::vector<uint32_t> memory_;

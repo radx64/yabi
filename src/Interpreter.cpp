@@ -43,6 +43,11 @@ std::vector<uint32_t>& Interpreter::getMemory()
     return memory_;
 }
 
+std::string Interpreter::getProgram()
+{
+    return program_;
+}
+
 void Interpreter::printChar()
 {
     output_ += std::string(1,memory_[memoryPointer_] % 255);
