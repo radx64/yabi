@@ -7,7 +7,6 @@
 
 int main(int argc, char** argv)
 {
-    std::cout << "Hello in World of YABI! " << argc << argv[0] <<std::endl;
     Interpreter in;
     in.load("++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.");
     

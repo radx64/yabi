@@ -11,8 +11,6 @@ void Interpreter::load(std::string program)
     memory_.resize(memorySize_,0);
     memoryPointer_ = 0;
     programPointer_ = 0;
-    std::cout << "Loaded program:" << std::endl;
-    std::cout << program << std::endl;
 }
 
 void Interpreter::run()
@@ -119,4 +117,14 @@ void Interpreter::increaseMemoryAtPointer()
 void Interpreter::decreaseMemoryAtPointer()
 {
     --memory_[memoryPointer_];
+}
+
+uint32_t Interpreter::getMemoryPointer()
+{
+    return memoryPointer_;
+}
+
+uint32_t Interpreter::getProgramPointer()
+{
+    return programPointer_;
 }

@@ -22,6 +22,9 @@ public:
     void beginLoop();
     void endLoop();
 
+    uint32_t getMemoryPointer();
+    uint32_t getProgramPointer();
+
 private:
     const uint16_t memorySize_ = 30000;
     std::string program_;
