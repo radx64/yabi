@@ -57,3 +57,9 @@ TEST_F(InterpreterShould, decreaseMemoryAtPointerShouldWork)
     interpreter_.decreaseMemoryAtPointer();
     EXPECT_EQ(interpreter_.getMemory()[interpreter_.getMemoryPointer()],-1);
 }
+
+TEST_F(InterpreterShould, throwIfUnknownOperandWasInLoadedProgram)
+{
+    interpreter_.load("+++8");
+    EXPECT_THROW(interpreter_.run(), std::string);
+}

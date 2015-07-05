@@ -10,6 +10,7 @@ class Interpreter
 public:
     void load(std::string program);
     void run();
+    void step();
 
     std::vector<uint32_t>& getMemory();
     std::string getOutput();

@@ -19,12 +19,11 @@ int main(int argc, char** argv)
         std::cout << "Exception was thrown: " << e <<std::endl;
     }
 
-    std::cout << "Memory after run:" << std::endl;
-    MemoryPrinter printer;
-    printer.print(in.getMemory());
-
     std::cout << "Output:" << std::endl;
     std::cout <<in.getOutput() <<std::endl;
-    
+
+    std::cout << "Memory after run:" << std::endl;
+    MemoryPrinter printer;
+    printer.print(in.getMemory(),4);
     return 0;
 }

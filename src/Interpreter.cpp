@@ -17,20 +17,25 @@ void Interpreter::run()
 {
     while(programPointer_<program_.size())
     {
-        char command = program_[programPointer_];
-        switch(command)
-        {
-            case '>' : increaseMemoryPointer();break;
-            case '<' : decreaseMemoryPointer();break;
-            case '+' : increaseMemoryAtPointer();break;
-            case '-' : decreaseMemoryAtPointer();break;
-            case '[' : beginLoop();break;
-            case ']' : endLoop();break;
-            case '.' : printChar();break;
-            default  : throw std::string("Unknown operand: " + std::string(1,command));
-        }
-        ++programPointer_;
+        step();
     }
+}
+
+void Interpreter::step()
+{
+    char command = program_[programPointer_];
+    switch(command)
+    {
+        case '>' : increaseMemoryPointer();break;
+        case '<' : decreaseMemoryPointer();break;
+        case '+' : increaseMemoryAtPointer();break;
+        case '-' : decreaseMemoryAtPointer();break;
+        case '[' : beginLoop();break;
+        case ']' : endLoop();break;
+        case '.' : printChar();break;
+        default  : throw std::string("Unknown operand: " + std::string(1,command));
+    }
+    ++programPointer_;    
 }
 
 std::vector<uint32_t>& Interpreter::getMemory()
