@@ -41,7 +41,6 @@ void Interpreter::step()
         case '[' : beginLoop();break;
         case ']' : endLoop();break;
         case '.' : printChar();break;
-        default  : throw std::string("Unknown operand: " + std::string(1,command));
     }
     ++programPointer_;    
 }
