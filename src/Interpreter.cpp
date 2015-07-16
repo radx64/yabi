@@ -20,6 +20,14 @@ void Interpreter::run()
         step();
     }
 }
+void Interpreter::reset()
+{
+    output_.clear();
+    memory_.clear();
+    memory_.resize(memorySize_,0);
+    memoryPointer_ = 0;
+    programPointer_ = 0;    
+}
 
 void Interpreter::step()
 {

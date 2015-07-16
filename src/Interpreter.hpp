@@ -9,6 +9,7 @@ public:
     void load(std::string program) override;
     void run() override;
     void step() override;
+    void reset() override;
 
     std::vector<uint32_t>& getMemory() override;
     std::string getOutput() override;

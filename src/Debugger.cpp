@@ -76,15 +76,94 @@ void Debugger::printOutputBuffer()
     std::cout << "Output Buffer: " << interpreter_->getOutput() << std::endl;
 }
 
-void Debugger::run()
+std::string Debugger::askForCommand()
 {
-    while(interpreter_->getProgramPointer() < interpreter_->getProgram().size())
+    std::cout << std::endl << ":";
+    std::string command;
+    std::getline(std::cin, command);
+    return command;
+}
+
+void Debugger::printHelp()
+{
+    std::cout << "Help!" << std::endl;
+    std::cout << "help [h] - displays this help" << std::endl;
+    std::cout << "reset    - reset state of interpreter" << std::endl;
+    std::cout << "run  [r] - run program" << std::endl;
+    std::cout << "step [s] - execute single instruction" << std::endl;
+    std::cout << "quit [q] - quit program" << std::endl << std::endl;
+    std::cout << "Press ENTER to return to debugger" << std::endl;
+    std::string waitForEnter;
+    std::getline(std::cin, waitForEnter);
+}
+
+void Debugger::step()
+{
+    interpreter_->step();
+}
+
+void Debugger::runToEnd()
+{
+    while(interpreter_->getProgramPointer() < interpreter_->getProgram().size()-1)
     {
         clearScreen();
         printProgramScope();
         printMemoryScope();
         printOutputBuffer();
         interpreter_->step();
-        usleep(100000);
+        usleep(50000);       
+    }
+}
+
+void Debugger::execute(std::string command)
+{
+    if (command == "help" || command == "h")
+    {
+        printHelp();
+    }
+    else if (command == "step" || command == "s")
+    {
+        step();
+    }
+    else if (command == "run" || command == "r")
+    {
+        runToEnd();
+    }
+    else if (command == "quit" || command == "q")
+    {
+        command = "quit";
+    }
+
+    else if (command == "reset")
+    {
+        interpreter_->reset();
+    }
+    else
+    {
+        throw std::string("Unknown command " + command);
+    }
+}
+
+void Debugger::run()
+{
+    std::string command;
+    std::string lastException;
+
+    while(command != "quit")
+    {
+        clearScreen();
+        printProgramScope();
+        printMemoryScope();
+        printOutputBuffer();
+        std::cout << lastException << std::endl;
+        command = askForCommand();
+        try
+        {
+            execute(command);
+        }
+        catch (std::string exception)
+        {
+            lastException = "Exception \"" + exception + "\" was thrown";
+        }
     }
 }

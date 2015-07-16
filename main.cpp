@@ -2,6 +2,8 @@
 #include <exception>
 #include <cstdint>
 #include <memory>
+#include <sstream>
+#include <fstream>
 
 #include "Debugger.hpp"
 #include "Interpreter.hpp"
@@ -10,14 +12,26 @@
 int main(int argc, char** argv)
 {
     std::shared_ptr<Interpreter> in = std::make_shared<Interpreter>();
-    in->load("++++++++++[>+++++++>++++++++++>+++>+<<<<-]>++.>+.+++++++..+++.>++.<<+++++++++++++++.>.+++.------.--------.>+.>.");
 
-    if (argc == 2 && std::string(argv[1]) == "debug")
+    if (argc > 1)
+    {
+        std::ifstream file(argv[1]);
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        in->load(buffer.str());
+    }
+    else
+    {
+        std::cout << "PARAMS!!!!"<<std::endl;
+        return 1;
+    }
+
+    if (argc == 3 && std::string(argv[2]) == "debug")
     {
         Debugger debugger(in);
         debugger.run();
     }
-    else
+    else if(argc == 2)
     {
         try
         {
@@ -33,15 +47,5 @@ int main(int argc, char** argv)
         MemoryPrinter printer;
         printer.print(in->getMemory(),4);
     }
-
-
-    
-    
-    
-
-
-
-
-
     return 0;
 }

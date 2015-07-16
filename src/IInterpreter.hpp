@@ -11,6 +11,7 @@ public:
     virtual void load(std::string program) = 0;
     virtual void run() = 0;
     virtual void step() = 0;
+    virtual void reset() = 0;
 
     virtual std::vector<uint32_t>& getMemory() = 0;
     virtual std::string getOutput() = 0;
