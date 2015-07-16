@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     }
     else
     {
-        std::cout << "PARAMS!!!!"<<std::endl;
+        std::cout << "Not enough parameters. Usage: "<<argv[0] << " BF_file_name [debug]"<<std::endl;
         return 1;
     }
 
